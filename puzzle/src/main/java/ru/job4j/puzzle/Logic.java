@@ -70,8 +70,22 @@ public class Logic {
 
     public boolean isWin() {
         int[][] table = this.convert();
-        boolean result = false;
-        return result;
+        int[] rowsSum = new int[table.length];
+        int[] linesSum = new int[table.length];
+        for (int row = 0; row < table.length; row++) {
+            for (int cell = 0; cell < table.length; cell++) {
+                if (table[row][cell] == 1) {
+                    linesSum[cell] += 1;
+                    rowsSum[row] += 1;
+                }
+            }
+        }
+        for (int i = 0; i < table.length; i++) {
+            if (rowsSum[i] == table.length || linesSum[i] == table.length) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int[][] convert() {
