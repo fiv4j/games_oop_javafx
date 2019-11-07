@@ -70,22 +70,17 @@ public class Logic {
 
     public boolean isWin() {
         int[][] table = this.convert();
-        int[] rowsSum = new int[table.length];
-        int[] linesSum = new int[table.length];
-        for (int row = 0; row < table.length; row++) {
-            for (int cell = 0; cell < table.length; cell++) {
-                if (table[row][cell] == 1) {
-                    linesSum[cell] += 1;
-                    rowsSum[row] += 1;
-                }
+        boolean winFound = false;
+        for (int i = 0; !winFound && i < table.length; i++) {
+            int rowsCount = 0;
+            int linesCount = 0;
+            for (int j = 0; j < table.length; j++) {
+                rowsCount += table[i][j];
+                linesCount += table[j][i];
+                winFound = rowsCount == table.length || linesCount == table.length;
             }
         }
-        for (int i = 0; i < table.length; i++) {
-            if (rowsSum[i] == table.length || linesSum[i] == table.length) {
-                return true;
-            }
-        }
-        return false;
+        return winFound;
     }
 
     public int[][] convert() {
