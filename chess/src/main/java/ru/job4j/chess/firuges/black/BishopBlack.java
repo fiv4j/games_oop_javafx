@@ -32,15 +32,23 @@ public class BishopBlack implements Figure {
         int deltaX = dest.x > source.x ? 1 : -1;
         int deltaY = dest.y > source.y ? 1 : -1;
         for (int index = 0; index < size; index++) {
-            for (Cell cell: Cell.values()) {
-                if (cell.x == (source.x + deltaX * (index + 1))
-                        && cell.y == (source.y + deltaY * (index + 1))) {
-                    steps[index] = cell;
-                    break;
-                }
-            }
+            steps[index] = this.findCellByCoords(
+                source.x + deltaX * (index + 1),
+                source.y + deltaY * (index + 1)
+            );
         }
         return steps;
+    }
+
+    private Cell findCellByCoords(int x, int y) {
+        Cell result = null;
+        for (Cell cell: Cell.values()) {
+            if (cell.x == x && cell.y == y) {
+                result = cell;
+                break;
+            }
+        }
+        return result;
     }
 
     public boolean isDiagonal(Cell source, Cell dest) {
