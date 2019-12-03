@@ -49,17 +49,9 @@ public class Logic3T {
     }
 
     public boolean hasGap() {
-        boolean result = false;
-        List<Boolean> filled = Arrays.stream(table)
+        return Arrays.stream(table)
                 .flatMap(Arrays::stream)
                 .map(Figure3T::hasAny)
-                .collect(Collectors.toList());
-        for (var cell : filled) {
-            if (!cell) {
-                result = true;
-                break;
-            }
-        }
-        return result;
+                .anyMatch(x -> !x);
     }
 }
